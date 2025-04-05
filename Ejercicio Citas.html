@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salud Vital - Registro de Citas Médicas</title>
+  <style>
+    :root {
+      --verde: #2ecc71;
+      --azul: #3498db;
+      --fondo: #f4fef8;
+      --texto: #2c3e50;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--fondo);
+      color: var(--texto);
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--verde);
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    form div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    button {
+      background-color: var(--azul);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    table {
+      margin-top: 30px;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--verde);
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Salud Vital - Citas Médicas</h1>
+    <form id="formulario">
+      <div>
+        <label>👤 Nombre del paciente</label>
+        <input type="text" required />
+      </div>
+      <div>
+        <label>🚻 Sexo</label>
+        <select required>
+          <option value="">Seleccione</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div>
+        <label>📞 Teléfono</label>
+        <input type="tel" required />
+      </div>
+      <div>
+        <label>📧 Correo electrónico</label>
+        <input type="email" required />
+      </div>
+      <div>
+        <label>🩸 Tipo de sangre</label>
+        <select required>
+          <option value="">Seleccione</option>
+          <option>A+</option>
+          <option>A-</option>
+          <option>B+</option>
+          <option>B-</option>
+          <option>AB+</option>
+          <option>AB-</option>
+          <option>O+</option>
+          <option>O-</option>
+        </select>
+      </div>
+      <div>
+        <label>💼 Ocupación</label>
+        <input type="text" required />
+      </div>
+      <div class="full-width">
+        <label>📝 Motivo de la cita</label>
+        <textarea rows="2" required></textarea>
+      </div>
+      <div>
+        <label>🤒 Tipo de enfermedad</label>
+        <input type="text" required />
+      </div>
+      <div>
+        <label>📅 Fecha y hora deseada</label>
+        <input type="datetime-local" required />
+      </div>
+      <div class="full-width">
+        <button type="submit">Registrar cita</button>
+      </div>
+    </form>
+
+    <table id="tabla">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Sexo</th>
+          <th>Teléfono</th>
+          <th>Correo</th>
+          <th>Sangre</th>
+          <th>Ocupación</th>
+          <th>Motivo</th>
+          <th>Enfermedad</th>
+          <th>Fecha y hora</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const formulario = document.getElementById('formulario');
+    const tabla = document.querySelector('#tabla tbody');
+
+    formulario.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const datos = Array.from(formulario.querySelectorAll('input, select, textarea')).map(el => el.value);
+
+      const fila = document.createElement('tr');
+      datos.forEach(dato => {
+        const td = document.createElement('td');
+        td.textContent = dato;
+        fila.appendChild(td);
+      });
+
+      tabla.appendChild(fila);
+      formulario.reset();
+    });
+  </script>
+</body>
+</html>
